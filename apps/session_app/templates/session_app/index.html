@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+	<html>
+		<head>
+			<title> Session Words Index </title>
+			{% load static %}
+			<link rel="stylesheet" href="{% static 'session_app/css/style.css' %}">			
+		</head>
+		<body>
+			<div class="wrapper">
+				<div class="left">
+					<h1> Add a new word </h1>
+					<form action="/process" method="post">
+					{% csrf_token %}
+						<input class="info" type="text" name="word">
+					
+						Choose a color 
+						<input class="info" type="radio" name="color" value="red"> Red
+						<input class="info" type="radio" name="color" value="green"> Green
+						<input class="info" type="radio" name="color" value="blue"> Blue
+						<input class="info" type="checkbox" name="font" value="font"> show in BIG font!
+						<input class="info" type="submit" value="Add to Session">
+					</form>
+				</div>
+
+				<div class="right">
+					<form>
+					{% csrf_token %}
+						<input type="submit" value="Clear Session">
+
+					</form>	
+					{% for item in request.session.list %} 
+						<p> {{item.word}}{{item.time}} </p>
+					{%endfor%}
+
+				</div>
+			</div>
+
+		</body>
+	</html>
